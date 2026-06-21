@@ -1,3 +1,4 @@
+'use client'
 import { MapPin } from 'lucide-react'
 import Link from 'next/link'
 import {
@@ -20,12 +21,43 @@ import {
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
+import { useState } from 'react'
+import AppSelect from '../shared/app-select'
 
 const TopBar = () => {
+  const languages = [
+  {
+    value: "en",
+    label: "Eng",
+  },
+  {
+    value: "bn",
+    label: "Bangla",
+  },
+];
+const currencies = [
+  {
+    value: "usd",
+    label: "USD",
+  },
+  {
+    value: "eur",
+    label: "EUR",
+  },
+  {
+    value: "bdt",
+    label: "BDT",
+  },
+];
+ const [language, setLanguage] = useState("en");
+const [currency, setCurrency] = useState("usd");
+
   return (
     <div className='border-b border-gray-200 bg-primary-500 py-2 text-white'>
       <div className='container mx-auto px-4'>
@@ -35,28 +67,19 @@ const TopBar = () => {
             Dhanmondi, Dhaka 1205
           </p>
           <div className='flex gap-6 text-xs'>
-            <Select defaultValue='en'>
-              <SelectTrigger className='h-auto w-fit border-none bg-transparent px-0 text-xs text-white shadow-none focus:ring-0'>
-                <SelectValue />
-              </SelectTrigger>
+            <AppSelect
+              placeholder='Languages'
+  value={language}
+  onChange={setLanguage}
+  options={languages}
+/>
 
-              <SelectContent>
-                <SelectItem value='en'>Eng</SelectItem>
-                <SelectItem value='bn'>Bangla</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select defaultValue='usd'>
-              <SelectTrigger className='h-auto w-fit border-none bg-transparent px-0 text-xs text-white shadow-none focus:ring-0'>
-                <SelectValue />
-              </SelectTrigger>
-
-              <SelectContent>
-                <SelectItem value='usd'>USD</SelectItem>
-                <SelectItem value='eur'>EUR</SelectItem>
-                <SelectItem value='bdt'>BDT</SelectItem>
-              </SelectContent>
-            </Select>
+            <AppSelect
+              placeholder='Currencies'
+  value={currency}
+  onChange={setCurrency}
+  options={currencies}
+/>
             {true ? (
               // <DropdownMenu>
               //   <DropdownMenuTrigger asChild>
