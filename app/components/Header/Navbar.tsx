@@ -23,7 +23,7 @@ export default async function Navbar() {
               <NavigationMenuTrigger>All Categories</NavigationMenuTrigger>
 
               <NavigationMenuContent>
-                <div className='grid w-175 grid-cols-3 gap-4 p-5'>
+                <div className='grid w-auto grid-cols-4 gap-4 p-5'>
                   {categories.map((category) => (
                     <Link
                       key={category.id}
