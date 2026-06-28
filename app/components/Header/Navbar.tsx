@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/navigation-menu'
 import { getCategories } from '@/app/services/category.service'
 import Image from 'next/image'
+import { Phone } from 'lucide-react'
 
 export default async function Navbar() {
   const categories = await getCategories()
@@ -92,6 +93,11 @@ export default async function Navbar() {
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
+        <div className="ml-auto flex items-center gap-2 ">
+            <span className="flex items-center gap-2 text-gray-900">
+              <Phone className="w-5" /> (+880) 2-5881/2345
+            </span>
+          </div>
       </div>
     </div>
   )
