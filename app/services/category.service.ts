@@ -1,6 +1,7 @@
-import { Category } from "../type";
+import { TCategory } from "@/types/categroy";
 
-export async function getCategories(): Promise<Category[]> {
+
+export async function getCategories(): Promise<TCategory[]> {
   const response = await fetch(
     "https://taxi-kitchen-api.vercel.app/api/v1/categories",
     {
