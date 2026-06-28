@@ -1,4 +1,4 @@
-import { HeroSection, PopularCategories, ProductSection } from "./components/home";
+import { HeroSection, PopularCategories, ProductSection, Testimonials } from "./components/home";
 
 
 export default function Home() {
@@ -6,7 +6,8 @@ export default function Home() {
     <main>
       <HeroSection />
       <PopularCategories />
-      <ProductSection/>
+      <ProductSection />
+      <Testimonials/>
       
  </main>
   );

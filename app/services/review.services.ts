@@ -1,7 +1,7 @@
-import { TProduct } from "@/types/product";
-export async function getProducts(): Promise<TProduct[]> {
+import { TReview } from "@/types/review";
+export async function getReveiws(): Promise<TReview[]> {
   const response = await fetch(
-    "https://taxi-kitchen-api.vercel.app/api/v1/foods/random",
+    "https://taxi-kitchen-api.vercel.app/api/v1/reviews",
     {
       next: {
         revalidate: 3600, // cache for 1 hour
@@ -15,5 +15,5 @@ export async function getProducts(): Promise<TProduct[]> {
 
   const data = await response.json();
 
-  return data.foods ?? [];
+  return data.reviews ?? [];
 }
