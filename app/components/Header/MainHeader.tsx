@@ -62,7 +62,7 @@ export default function MainHeader() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <Image
-              src="/app-logo.png"
+              src="/asset/app-logo.png"
               alt="Ecofy Logo"
               width={32}
               height={32}
