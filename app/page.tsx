@@ -1,11 +1,12 @@
-import { HeroSection, PopularCategories } from "./components/home";
+import { HeroSection, PopularCategories, ProductSection } from "./components/home";
 
 
 export default function Home() {
   return (
     <main>
       <HeroSection />
-      <PopularCategories/>
+      <PopularCategories />
+      <ProductSection/>
       
  </main>
   );

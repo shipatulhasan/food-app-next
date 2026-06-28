@@ -35,7 +35,7 @@ export default async function Navbar() {
                         alt={category.categoryName}
                         width={60}
                         height={60}
-                        className='rounded-full'
+                        className='rounded-full w-16 h-auto'
                       />
 
                       <span className='font-medium'>
