@@ -1,12 +1,12 @@
 'use client'
-import { MapPin } from 'lucide-react'
-import Link from 'next/link'
 import {
   BadgeCheckIcon,
   BellIcon,
   CreditCardIcon,
-  LogOutIcon
+  LogOutIcon,
+  MapPin
 } from 'lucide-react'
+import Link from 'next/link'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -18,45 +18,36 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select'
 import { useState } from 'react'
 import AppSelect from '../shared/app-select'
 
 const TopBar = () => {
   const languages = [
-  {
-    value: "en",
-    label: "Eng",
-  },
-  {
-    value: "bn",
-    label: "Bangla",
-  },
-];
-const currencies = [
-  {
-    value: "usd",
-    label: "USD",
-  },
-  {
-    value: "eur",
-    label: "EUR",
-  },
-  {
-    value: "bdt",
-    label: "BDT",
-  },
-];
- const [language, setLanguage] = useState("en");
-const [currency, setCurrency] = useState("usd");
+    {
+      value: 'en',
+      label: 'Eng'
+    },
+    {
+      value: 'bn',
+      label: 'Bangla'
+    }
+  ]
+  const currencies = [
+    {
+      value: 'usd',
+      label: 'USD'
+    },
+    {
+      value: 'eur',
+      label: 'EUR'
+    },
+    {
+      value: 'bdt',
+      label: 'BDT'
+    }
+  ]
+  const [language, setLanguage] = useState('en')
+  const [currency, setCurrency] = useState('usd')
 
   return (
     <div className='border-b border-gray-200 bg-primary-500 py-2 text-white'>
@@ -69,17 +60,17 @@ const [currency, setCurrency] = useState("usd");
           <div className='flex gap-6 text-xs'>
             <AppSelect
               placeholder='Languages'
-  value={language}
-  onChange={setLanguage}
-  options={languages}
-/>
+              value={language}
+              onChange={setLanguage}
+              options={languages}
+            />
 
             <AppSelect
               placeholder='Currencies'
-  value={currency}
-  onChange={setCurrency}
-  options={currencies}
-/>
+              value={currency}
+              onChange={setCurrency}
+              options={currencies}
+            />
             {true ? (
               // <DropdownMenu>
               //   <DropdownMenuTrigger asChild>
