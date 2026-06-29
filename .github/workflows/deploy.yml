@@ -59,7 +59,8 @@ jobs:
           EC2_USER: ${{ secrets.EC2_USER }}
           EC2_APP_DIR: ${{ secrets.EC2_APP_DIR }}
 
-        run: set -euo pipefail
+        run: |
+          set -euo pipefail
           APP_DIR="${EC2_APP_DIR:-/opt/food-app}"
           rsync -az --delete \
           --exclude '.git' \
