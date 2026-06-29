@@ -76,8 +76,8 @@ jobs:
           set -euo pipefail
           APP_DIR="${EC2_APP_DIR:-/opt/food-app}"
           ssh -i ~/.ssh/food-app.pem \
-          $EC2_USER@$EC2_HOST \
-          bash "$APP_DIR/scripts/ec2-deploy.sh"
+          "$EC2_USER@$EC2_HOST" \
+          "bash '$APP_DIR/scripts/ec2-deploy.sh'"
 
       - name: Deployment complete
         run: echo "Deployment successfull."
