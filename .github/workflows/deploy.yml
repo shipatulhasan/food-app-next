@@ -1,0 +1,82 @@
+name: Deploy next project on Ec2
+on:
+  push:
+    branches: ['main']
+
+  workflow_dispatch:
+
+permission:
+  contents: read
+jobs:
+  deploy:
+    name: Deploy food app
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install Dependency
+        run: npm ci
+
+      - name: Run Eslint
+        run: npm run lint
+
+      - name: Build Next.js
+        run: npm run build
+
+      - name: Prepare SSH key
+        env:
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+          EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.ssh
+          echo "EC2_SSH_KEY" > ~/.ssh/food-app.pem
+          chmod 600 ~/.ssh/food-app.pem
+          ssh-keyscan -H "EC2_SSH_KEY" >> ~/.ssh/known_hosts
+
+      - name: Bootstrap Ec2
+        env:
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+          EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+          EC2_APP_DIR: ${{ secrets.EC2_APP_DIR }}
+        run: |
+          set -euo pipefail
+          ssh -i ~/.ssh/ec2.pem $EC2_USER@$EC2_HOST \
+          "APP_DIR='${EC2_APP_DIR:-/opt/food-app}' bash -s" < script/ec2-bootstrap.sh
+
+      - name: Push full source code to Ec2
+        run: set -euo pipefail
+          $APP_DIR="${EC2_APP_DIR:-/opt/food-app}""
+          rsync -az --delete \
+          --exclude '.git' \
+          --exclude ".github" \
+          --exclude "node_modules" \
+          --exclude ".next" \
+          --exclude ".env" \
+          --exclude ".env.local" \
+          --exclude ".DS_Store" \
+          -e "ssh -i ~/.ssh/ec2.pem" \
+          ./ "$EC2_USER@$EC2_HOST:$APP_DIR/"
+
+      - name: Deploy Application
+        env:
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+          EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+          EC2_APP_DIR: ${{ secrets.EC2_APP_DIR }}
+        run: |
+          set -euo pipefail
+          APP_DIR="${EC2_APP_DIR:-/opt/food-app}"
+          ssh -i ~/.ssh/ec2.pem \
+          $EC2_USER@$EC2_HOST \
+          bash "$APP_DIR/script/ec2-deploy.sh"
+
+      - name: Deployment complete
+        run: echo "Deployment successfull."
