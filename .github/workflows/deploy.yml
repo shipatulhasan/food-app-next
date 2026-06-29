@@ -39,9 +39,9 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p ~/.ssh
-          echo "EC2_SSH_KEY" > ~/.ssh/food-app.pem
+          echo "$EC2_SSH_KEY" > ~/.ssh/food-app.pem
           chmod 600 ~/.ssh/food-app.pem
-          ssh-keyscan -H "EC2_SSH_KEY" >> ~/.ssh/known_hosts
+          ssh-keyscan -H "$EC2_SSH_KEY" >> ~/.ssh/known_hosts
 
       - name: Bootstrap Ec2
         env:
