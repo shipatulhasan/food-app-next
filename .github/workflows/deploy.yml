@@ -55,7 +55,7 @@ jobs:
 
       - name: Push full source code to Ec2
         run: set -euo pipefail
-          $APP_DIR="${EC2_APP_DIR:-/opt/food-app}""
+          APP_DIR="${EC2_APP_DIR:-/opt/food-app}""
           rsync -az --delete \
           --exclude '.git' \
           --exclude ".github" \
