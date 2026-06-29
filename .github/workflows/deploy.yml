@@ -54,6 +54,11 @@ jobs:
           "APP_DIR='${EC2_APP_DIR:-/opt/food-app}' bash -s" < scripts/ec2-bootstrap.sh
 
       - name: Push full source code to Ec2
+        env:
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+          EC2_USER: ${{ secrets.EC2_USER }}
+          EC2_APP_DIR: ${{ secrets.EC2_APP_DIR }}
+
         run: set -euo pipefail
           APP_DIR="${EC2_APP_DIR:-/opt/food-app}"
           rsync -az --delete \
@@ -66,6 +71,20 @@ jobs:
           --exclude ".DS_Store" \
           -e "ssh -i ~/.ssh/food-app.pem" \
           ./ "$EC2_USER@$EC2_HOST:$APP_DIR/"
+
+      - name: Debug EC2
+        env:
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+          EC2_USER: ${{ secrets.EC2_USER }}
+          EC2_APP_DIR: ${{ secrets.EC2_APP_DIR }}
+        run: |
+          ssh -i ~/.ssh/food-app.pem \
+          "$EC2_USER@$EC2_HOST" \
+          "echo APP_DIR=$EC2_APP_DIR;
+          pwd;
+          ls -la;
+          ls -la $EC2_APP_DIR;
+          ls -la $EC2_APP_DIR/scripts"
 
       - name: Deploy Application
         env:
