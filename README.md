@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-Deploying in ec2
+Deploying in ec2. update ssh security group
 
 First, run the development server:
 
