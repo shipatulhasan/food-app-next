@@ -50,7 +50,7 @@ jobs:
           EC2_APP_DIR: ${{ secrets.EC2_APP_DIR }}
         run: |
           set -euo pipefail
-          ssh -i ~/.ssh/ec2.pem $EC2_USER@$EC2_HOST \
+          ssh -i ~/.ssh/food-app.pem $EC2_USER@$EC2_HOST \
           "APP_DIR='${EC2_APP_DIR:-/opt/food-app}' bash -s" < scripts/ec2-bootstrap.sh
 
       - name: Push full source code to Ec2
@@ -64,7 +64,7 @@ jobs:
           --exclude ".env" \
           --exclude ".env.local" \
           --exclude ".DS_Store" \
-          -e "ssh -i ~/.ssh/ec2.pem" \
+          -e "ssh -i ~/.ssh/food-app.pem" \
           ./ "$EC2_USER@$EC2_HOST:$APP_DIR/"
 
       - name: Deploy Application
@@ -75,7 +75,7 @@ jobs:
         run: |
           set -euo pipefail
           APP_DIR="${EC2_APP_DIR:-/opt/food-app}"
-          ssh -i ~/.ssh/ec2.pem \
+          ssh -i ~/.ssh/food-app.pem \
           $EC2_USER@$EC2_HOST \
           bash "$APP_DIR/scripts/ec2-deploy.sh"
 
