@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-Deploying in ec2. update ec2
+Deploying in ec2. update ec2 host in secret
 
 First, run the development server:
 
